@@ -1,0 +1,20 @@
+name: Notificar creación de cliente
+
+on:
+  push:
+    paths:
+      - 'clientes/*.txt'  # Vigilar archivos en la carpeta de clientes
+
+jobs:
+  notify_team:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Notificar a los miembros del equipo
+        run: |
+          echo "Un nuevo cliente ha sido creado en el sistema." > mensaje.txt
+          cat mensaje.txt
+
