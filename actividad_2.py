@@ -135,15 +135,6 @@ def obtener_servicios_existentes(archivo):
                 servicios.append(line[2:].strip())
     return servicios
 
-# Simulación de usuarios en un grupo de trabajo
-def simular_interaccion():
-    usuarios = ["Usuario1", "Usuario2"]
-    print("Interacciones simuladas entre usuarios del grupo de trabajo.")
-    for usuario in usuarios:
-        print(f"\nAccediendo como: {usuario}")
-        listar_clientes()
-        buscar_cliente(input("Ingrese el nombre del cliente a buscar: "))
-
 # Menú principal
 def menu():
     cargar_clientes()  # Cargar los clientes existentes en la tabla hash
@@ -154,8 +145,7 @@ def menu():
         print("4. Eliminar cliente")
         print("5. Listar todos los clientes")
         print("6. Buscar un cliente")
-        print("7. Simular interacción de grupo de trabajo")
-        print("8. Salir")
+        print("7. Salir")
         opcion = input("Seleccione una opción: ")
         
         if opcion == '1':
@@ -171,8 +161,6 @@ def menu():
         elif opcion == '6':
             buscar_cliente()
         elif opcion == '7':
-            simular_interaccion()
-        elif opcion == '8':
             print("Saliendo...")
             break
         else:
