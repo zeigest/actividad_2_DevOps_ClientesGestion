@@ -1,0 +1,3 @@
+Cliente: Pedro Pérez
+Servicios solicitados:
+- Internet
