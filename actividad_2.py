@@ -27,7 +27,7 @@ def crear_cliente():
     if os.path.isfile(archivo):
         print("El cliente ya existe.")
     else:
-        with open(archivo, 'w') as f:
+        with open(archivo, 'w', encoding='utf-8') as f:
             f.write(f"Cliente: {nombre}\n")
             f.write("Servicios solicitados:\n")
         clientes_archivos[nombre] = archivo  # Agregar a la tabla hash
@@ -50,7 +50,7 @@ def agregar_servicio(nombre=None):
         if servicio in servicios_existentes:
             print(f"El cliente ya tiene el servicio de {servicio}.")
         else:
-            with open(archivo, 'a') as f:
+            with open(archivo, 'a', encoding='utf-8') as f:
                 f.write(f"- {servicio}\n")
             print(f"Servicio '{servicio}' agregado correctamente al cliente {nombre}.")
     else:
@@ -103,7 +103,7 @@ def buscar_cliente(nombre=None):
     archivo = clientes_archivos.get(nombre)
     
     if archivo and os.path.isfile(archivo):
-        with open(archivo, 'r') as f:
+        with open(archivo, 'r', encoding="utf-8", errors="replace") as f:
             print(f.read())
     else:
         print("El cliente no existe.")
@@ -129,7 +129,7 @@ def seleccionar_servicio():
 # Función para obtener los servicios existentes de un cliente
 def obtener_servicios_existentes(archivo):
     servicios = []
-    with open(archivo, 'r') as f:
+    with open(archivo, 'r', encoding="utf-8", errors="replace") as f:
         for line in f:
             if line.startswith("- "):
                 servicios.append(line[2:].strip())
