@@ -1,20 +1,87 @@
-name: Notificar creación de cliente
+name: Cliente Gestión Notificaciones
 
 on:
   push:
     paths:
       - 'clientes/*.txt'  # Vigilar archivos en la carpeta de clientes
+  issues:
+    types: [opened, edited]  # Vigilar cuando se abran o editen "Issues" para solicitudes de mejoras o nuevas funciones
 
 jobs:
-  notify_team:
+  # Notificar creación de un nuevo cliente
+  notify_creation:
+    if: github.event_name == 'push' && github.event.commits[0].added != null
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Notificar a los miembros del equipo
+      - name: Notificar creación de cliente
         run: |
           echo "Un nuevo cliente ha sido creado en el sistema." > mensaje.txt
           cat mensaje.txt
+          
+  # Notificar modificación de datos de un cliente existente
+  notify_modification:
+    if: github.event_name == 'push' && github.event.commits[0].modified != null
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Notificar modificación de cliente
+        run: |
+          echo "Los datos de un cliente existente han sido modificados en el sistema." > mensaje.txt
+          cat mensaje.txt
+
+  # Consultar información de un cliente (simulación)
+  notify_consultation:
+    if: github.event_name == 'push' && github.event.commits[0].removed != null
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Notificar consulta de información
+        run: |
+          echo "Consulta realizada sobre la información de un cliente." > mensaje.txt
+          cat mensaje.txt
+
+  # Solicitud de mejora a la aplicación
+  request_improvement:
+    if: github.event.issue.labels.*.name contains 'enhancement'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notificar solicitud de mejora
+        run: |
+          echo "Se ha solicitado una mejora a la aplicación." > mensaje.txt
+          cat mensaje.txt
+
+  # Solicitud de nueva función a la aplicación
+  request_new_feature:
+    if: github.event.issue.labels.*.name contains 'feature-request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notificar nueva función solicitada
+        run: |
+          echo "Se ha solicitado una nueva función para la aplicación." > mensaje.txt
+          cat mensaje.txt
+
+  # Modificación del código de la aplicación
+  notify_code_change:
+    if: github.event_name == 'push' && github.event.commits[0].modified != null
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Notificar cambio en el código de la aplicación
+        run: |
+          echo "El código de la aplicación ha sido modificado." > mensaje.txt
+          cat mensaje.txt
